@@ -1,10 +1,20 @@
+import { useState } from "react";
 const Navbar = () => {
+    const [search,setSearch]= useState('');
+    const funcionParaManejarElCambio=(evento_de_cambio)=>{
+        setSearch(evento_de_cambio.target.value);
+    };
+
     return (
+        
         <div>
-            <p>
-                Trabajos
-            </p>
-            <input placeholder="Busca un trabajo"/>
+            <h1>
+                Hidro Tickets 
+            </h1>
+            <input 
+            placeholder="Busca un trabajo" 
+            onChange={funcionParaManejarElCambio}
+            value={search}/>
         </div>
     );
 
