@@ -1,38 +1,33 @@
 import { useState } from "react";
+import {useForm} from "react-hook-form";
 const SingupForm = () => {
-    const [name,setName]=useState('');
-    const [age,setAge]=useState('');
-    const [address,setAddress]=useState('');
-    const [phone,setPhone]=useState('');
+    const { register, handleSubmit, reset, formState:{errors}}= useForm();
     const handleCleanButton=(evento)=>{
         evento.stopPropagation();
-        setName('');
-        setAge('');
-        setPhone('');
-        setAddress('');
+        reset();
+
     }
-    const handleSubmitForm =(evento)=>{
-        evento.preventDefault();
-        console.log("no me actualizo por default",{name,age,address,phone});
-    }
+    const handleSubmitForm =(data)=>{
+      console.log("hola",data);
+ }
 
     return(
-        <form onSubmit={handleSubmitForm}>
+        <form onSubmit={handleSubmit(handleSubmitForm)}>
             <label>
                 Nombre
-                <input value={name} onChange ={(event)=>setName(event.target.value)}required/>
+                <input {...register('name'), {required:true}} />
             </label>
              <label>
                 Edad
-                <input value={age} onChange ={(event)=>setAge(event.target.value)}required/>
+                <input {...register('age'), {required:true}} />
             </label>
             <label>
                 Dirección
-                <input value={address} onChange ={(event)=>setAddress(event.target.value)}required/>
+                <input {...register('address'), {required:true}} />
             </label>
             <label>
                 Telefono
-                <input value={phone} onChange ={(event)=>setPhone(event.target.value)}required/>
+                <input {...register('phone'), {required:true}}/>
             </label>
             <button type="button" onClick={handleCleanButton}>Limpiar</button>
             <button type="submit">Registrarse </button>
